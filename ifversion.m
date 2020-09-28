@@ -22,7 +22,7 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 % ifversion('>=','R2009a') returns true when run on R2009a or later
 % ifversion('<','R2016a') returns true when run on R2015b or older
 % ifversion('==','R2018a') returns true only when run on R2018a
-% ifversion('==',9.8) returns true only when run on R2020a
+% ifversion('==',9.9) returns true only when run on R2020b
 % ifversion('<',0,'Octave','>',0) returns true only on Octave
 %
 % The conversion is based on a manual list and therefore needs to be updated manually, so it might
@@ -32,7 +32,7 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 %  _______________________________________________________________________
 % | Compatibility | Windows 10  | Ubuntu 20.04 LTS | MacOS 10.15 Catalina |
 % |---------------|-------------|------------------|----------------------|
-% | ML R2020a     |  works      |  not tested      |  not tested          |
+% | ML R2020b     |  works      |  not tested      |  not tested          |
 % | ML R2018a     |  works      |  works           |  not tested          |
 % | ML R2015a     |  works      |  works           |  not tested          |
 % | ML R2011a     |  works      |  works           |  not tested          |
@@ -41,11 +41,11 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 % | Octave 4.4.1  |  works      |  not tested      |  works               |
 % """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 %
-% Version: 1.0.2
-% Date:    2020-05-20
+% Version: 1.0.4
+% Date:    2020-09-28
 % Author:  H.J. Wisselink
 % Licence: CC by-nc-sa 4.0 ( creativecommons.org/licenses/by-nc-sa/4.0 )
-% Email=  'h_j_wisselink*alumnus_utwente_nl';
+% Email = 'h_j_wisselink*alumnus_utwente_nl';
 % Real_email = regexprep(Email,{'*','_'},{'@','.'})
 
 %The decimal of the version numbers are padded with a 0 to make sure v7.10 is larger than v7.9.
@@ -73,7 +73,7 @@ if isempty(v_num)
         'R2009a' 708;'R2009b' 709;'R2010a' 710;'R2010b' 711;'R2011a' 712;'R2011b' 713;...
         'R2012a' 714;'R2012b' 800;'R2013a' 801;'R2013b' 802;'R2014a' 803;'R2014b' 804;...
         'R2015a' 805;'R2015b' 806;'R2016a' 900;'R2016b' 901;'R2017a' 902;'R2017b' 903;...
-        'R2018a' 904;'R2018b' 905;'R2019a' 906;'R2019b' 907;'R2020a' 908};
+        'R2018a' 904;'R2018b' 905;'R2019a' 906;'R2019b' 907;'R2020a' 908;'R2020b',909};
 end
 
 if octave
