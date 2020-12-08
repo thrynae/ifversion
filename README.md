@@ -10,5 +10,6 @@ You shouldn't use a logical test with v=version;v=str2double(v(1:3)); as it is i
     ifversion('==','R2018a')        % returns true only when run on R2018a
     ifversion('==',9.9)             % returns true only when run on R2020b
     ifversion('<',0,'Octave','>',0) % returns true only on Octave
+    ifversion('<',0,'Octave','>=',6)% returns true only on Octave 6 and higher
 
 Licence: CC by-nc-sa 4.0
