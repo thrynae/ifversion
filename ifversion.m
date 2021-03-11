@@ -46,8 +46,8 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 % | Octave 4.4.1    | W10: works      |  not tested      |  works               |
 % """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 %
-% Version: 1.0.5
-% Date:    2020-12-08
+% Version: 1.0.6
+% Date:    2020-03-11
 % Author:  H.J. Wisselink
 % Licence: CC by-nc-sa 4.0 ( https://creativecommons.org/licenses/by-nc-sa/4.0 )
 % Email = 'h_j_wisselink*alumnus_utwente_nl';
@@ -78,7 +78,7 @@ if isempty(v_num)
         'R2013a' 801;'R2013b' 802;'R2014a' 803;'R2014b' 804;'R2015a' 805;
         'R2015b' 806;'R2016a' 900;'R2016b' 901;'R2017a' 902;'R2017b' 903;
         'R2018a' 904;'R2018b' 905;'R2019a' 906;'R2019b' 907;'R2020a' 908;
-        'R2020b',909};
+        'R2020b',909;'R2021a' 910};
 end
 
 if octave
