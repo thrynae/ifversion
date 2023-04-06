@@ -8,8 +8,11 @@ You shouldn't use a logical test with v=version;v=str2double(v(1:3)); as it is i
     ifversion('>=','R2009a')        % returns true when run on R2009a or later
     ifversion('<','R2016a')         % returns true when run on R2015b or older
     ifversion('==','R2018a')        % returns true only when run on R2018a
-    ifversion('==',9.9)             % returns true only when run on R2020b
+    ifversion('==',9.14)            % returns true only when run on R2023a
     ifversion('<',0,'Octave','>',0) % returns true only on Octave
     ifversion('<',0,'Octave','>=',6)% returns true only on Octave 6 and higher
+    ifversion('==',9.10)            % !!! returns true only when run on R2016b (v9.1), not R2021a (v9.10) !!!
+
+If you don't want to use a separate function, there are two built-in functions that may do what you need: [`verLessThan`](https://www.mathworks.com/help/matlab/ref/verlessthan.html) (introduced in R2007a) and [`isMATLABReleaseOlderThan`](https://www.mathworks.com/help/matlab/ref/ismatlabreleaseolderthan.html) (introduced in R2020b). The latter also allows filtering based on release type (pre-release vs normal release) and update number.
 
 Licence: CC by-nc-sa 4.0

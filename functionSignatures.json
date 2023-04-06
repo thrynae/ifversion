@@ -1,0 +1,21 @@
+{
+    "_schemaVersion": "1.0.0",
+    "_v_ifversion":"1.2.0",
+    "ifversion":
+    {
+        "inputs":
+        [
+            {"name":"test",           "kind":"required", "type":["char","choices={'<','<=','==','>=','>','~='}"],
+             "purpose":"Logical symbols for version test"},
+            {"name":"Rxxxxab",        "kind":"required", "type":[["char","row"],["numeric","scalar"]],
+             "purpose":"Matlab version"},
+            {"name":"OctaveFlag",     "kind":"positional", "type":["char","choices={'Octave'}"],
+             "purpose":"Use 'Octave' to indicate other runtime"},
+            {"name":"test_for_Octave","kind":"positional", "type":["char","choices={'<','<=','==','>=','>','~='}"],
+             "purpose":"Logical symbols for Octave version test"},
+            {"name":"v_Octave",       "kind":"ordered", "type":["numeric","scalar"],
+             "purpose":"GNU Octave version"}
+        ]
+    }
+}
+
