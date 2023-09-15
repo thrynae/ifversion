@@ -1,4 +1,87 @@
-function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
+function pass_part_fail=aaa___ifversion___test(varargin)
+%This is not a true test suite, but it should confirm the function runs without errors.
+%
+%Pass:    passes all tests
+%Partial: [no partial passing condition]
+%Fail:    fails any test
+pass_part_fail='pass';
+
+checkpoint('aaa___ifversion___test','ifversion')
+if nargin==0,RunTestHeadless=false;else,RunTestHeadless=true;end
+
+try ME=[]; %#ok<NASGU>
+    w=warning('off','HJW:ifversion:NoOctaveTest');
+    RunExamples(RunTestHeadless)
+    warning(w);% Reset warning.
+    [ThrowError,msg] = TestDictionary;
+catch ME;if isempty(ME),ME=lasterror;end %#ok<LERR>
+    warning(w);
+    if nargout>0
+        pass_part_fail='fail';
+    else
+        rethrow(ME)
+    end
+end
+
+SelfTestFailMessage = '';
+% No self-validators found for this function.
+checkpoint('read'); % Force write-out to checkpoint file.
+
+if ThrowError || ~isempty(SelfTestFailMessage)
+    if nargout>0
+        pass_part_fail='fail';
+    else
+        if ThrowError
+            error(msg)
+        else
+            error('Self-validator functions returned these error(s):\n%s',SelfTestFailMessage)
+        end
+    end
+end
+disp(['tester function ' mfilename ' finished '])
+if nargout==0,clear,end
+end
+function RunExamples(RunTestHeadless)
+% This creates the strings for a few examples.
+% Mapping [false true] to ' X' requires double(tf)*56+32
+txt = { ...
+    sprintf('Do the claims below match the actual version?\nv: %s\n',version),...
+    sprintf('[%c] R2009a or later',32+56*double(ifversion('>=','R2009a'))),...
+    sprintf('[%c] R2015b or older',32+56*double(ifversion('<','R2016a'))),...
+    sprintf('[%c] R2018a',32+56*double(ifversion('==','R2018a'))),...
+    sprintf('[%c] R2023a',32+56*double(ifversion('==',9.14))),...
+    sprintf('[%c] Octave',32+56*double(ifversion('<',0,'Octave','>',0))),...
+    sprintf('[%c] Octave 6 and higher',32+56*double(ifversion('<',0,'Octave','>=',6))),...
+    ''};
+if ~RunTestHeadless
+    clc
+    fprintf('%s\n',txt{:})
+end
+end
+function [ThrowError,msg]=TestDictionary
+[IsMatlab,version_dictionary] = ifversion('>',0,'Octave','<',0);
+ThrowError = false;msg = '';
+if IsMatlab
+    % Loop through the dictionary and see if the numeric test matches the text test.
+    for n=1:size(version_dictionary,1)
+        % Skip the old release names (like R13) and skip #.#0 releases.
+        v1 = version_dictionary{n,1};v2 = version_dictionary{n,2}/100;
+        if strcmp(v1(1:2),'R1'),continue,end
+        if mod(version_dictionary{n-1,2},10)==9,continue,end
+        if xor(ifversion('==',v1),ifversion('==',v2))
+            % If the results don't match, throw an error.
+            EndsInZero = logical(mod(v2,10));
+            msg = sprintf([ ...
+                'Test failed for %s (v%.' num2str(1+EndsInZero) 'f):\n'...
+                'Test returned %d for char and %d for numeric.\n'],...
+                v1,v2,ifversion('==',v1),ifversion('==',v2));
+            ThrowError = true;
+            return
+        end
+    end
+end
+end
+function [tf,version_dictionary]=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 %Determine if the current version satisfies a version restriction
 %
 % To keep the function fast, no input checking is done. This function returns a NaN if a release
@@ -46,34 +129,8 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 % multiple operating systems (Windows/Ubuntu/MacOS). For the full test matrix, see the HTML doc.
 % Compatibility considerations:
 % - This is expected to work on all releases.
-%
-% /=========================================================================================\
-% ||                     | Windows             | Linux               | MacOS               ||
-% ||---------------------------------------------------------------------------------------||
-% || Matlab R2023a       | W11: Pass           |                     |                     ||
-% || Matlab R2022b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2022a       | W11: Pass           |                     |                     ||
-% || Matlab R2021b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2021a       | W11: Pass           |                     |                     ||
-% || Matlab R2020b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2020a       | W11: Pass           |                     |                     ||
-% || Matlab R2019b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2019a       | W11: Pass           |                     |                     ||
-% || Matlab R2018a       | W11: Pass           | Ubuntu 22.04: Pass  |                     ||
-% || Matlab R2017b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2016b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2015a       | W11: Pass           | Ubuntu 22.04: Pass  |                     ||
-% || Matlab R2013b       | W11: Pass           |                     |                     ||
-% || Matlab R2007b       | W11: Pass           |                     |                     ||
-% || Matlab 6.5 (R13)    | W11: Pass           |                     |                     ||
-% || Octave 8.2.0        | W11: Pass           |                     |                     ||
-% || Octave 7.2.0        | W11: Pass           |                     |                     ||
-% || Octave 6.2.0        | W11: Pass           | Ubuntu 22.04: Pass  | Catalina: Pass      ||
-% || Octave 5.2.0        | W11: Pass           |                     |                     ||
-% || Octave 4.4.1        | W11: Pass           |                     | Catalina: Pass      ||
-% \=========================================================================================/
 
-if nargin<2 || nargout>1,error('incorrect number of input/output arguments'),end
+if nargin<2 || nargout>2,error('incorrect number of input/output arguments'),end
 
 % The decimal of the version numbers are padded with a 0 to make sure v7.10 is larger than v7.9.
 % This does mean that any numeric version input needs to be adapted. multiply by 100 and round to
@@ -101,6 +158,7 @@ if isempty(v_num)
         'R2020b' 909;'R2021a' 910;'R2021b' 911;'R2022a' 912;'R2022b' 913;
         'R2023a' 914;'R2023b' 2320};
 end
+version_dictionary = v_dict;
 
 if octave
     if nargin==2
@@ -108,23 +166,28 @@ if octave
             ['No version test for Octave was provided.',char(10),...
             'This function might return an unexpected outcome.']) %#ok<CHARTEN>
         if isnumeric(Rxxxxab)
+            checkpoint('ifversion_______________________________line093_cover_test','CoverTest')
             v = 0.1*Rxxxxab+0.9*fixeps(Rxxxxab);v = round(100*v);
         else
             L = ismember(v_dict(:,1),Rxxxxab);
             if sum(L)~=1
+                checkpoint('ifversion_______________________________line098_cover_test','CoverTest')
                 warning('HJW:ifversion:NotInDict',...
                     'The requested version is not in the hard-coded list.')
                 tf = NaN;return
             else
+                checkpoint('ifversion_______________________________line103_cover_test','CoverTest')
                 v = v_dict{L,2};
             end
         end
     elseif nargin==4
+        checkpoint('ifversion_______________________________line108_cover_test','CoverTest')
         % Undocumented shorthand syntax: skip the 'Octave' argument.
         [test,v] = deal(Oct_flag,Oct_test);
         % Convert 4.1 to 401.
         v = 0.1*v+0.9*fixeps(v);v = round(100*v);
     else
+        checkpoint('ifversion_______________________________line114_cover_test','CoverTest')
         [test,v] = deal(Oct_test,Oct_ver);
         % Convert 4.1 to 401.
         v = 0.1*v+0.9*fixeps(v);v = round(100*v);
@@ -132,15 +195,18 @@ if octave
 else
     % Convert R notation to numeric and convert 9.1 to 901.
     if isnumeric(Rxxxxab)
+        checkpoint('ifversion_______________________________line122_cover_test','CoverTest')
         % Note that this can't distinguish between 9.1 and 9.10, and will the choose the former.
         v = fixeps(Rxxxxab*100);if mod(v,10)==0,v = fixeps(Rxxxxab)*100+mod(Rxxxxab,1)*10;end
     else
         L = ismember(v_dict(:,1),Rxxxxab);
         if sum(L)~=1
+            checkpoint('ifversion_______________________________line128_cover_test','CoverTest')
             warning('HJW:ifversion:NotInDict',...
                 'The requested version is not in the hard-coded list.')
             tf = NaN;return
         else
+            checkpoint('ifversion_______________________________line133_cover_test','CoverTest')
             v = v_dict{L,2};
         end
     end
@@ -156,5 +222,36 @@ end
 function val=fixeps(val)
 % Round slightly up to prevent rounding errors using fix().
 val = fix(val+eps*1e3);
+end
+
+function out=checkpoint(caller,varargin)
+% This function has limited functionality compared to the debugging version.
+% (one of the differences being that this doesn't read/write to a file)
+% Syntax:
+%   checkpoint(caller,dependency)
+%   checkpoint(caller,dependency_1,...,dependency_n)
+%   checkpoint(caller,checkpoint_flag)
+%   checkpoint('reset')
+%   checkpoint('read')
+%   checkpoint('write_only_to_file_on_read')
+%   checkpoint('write_to_file_every_call')
+
+persistent data
+if isempty(data)||strcmp(caller,'reset')
+    data = struct('total',0,'time',0,'callers',{{}});
+end
+if strcmp(caller,"read")
+    out = data.time;return
+end
+if nargin==1,return,end
+then = now;
+for n=1:numel(varargin)
+    data.total = data.total+1;
+    data.callers = sort(unique([data.callers {caller}]));
+    if ~isfield(data,varargin{n}),data.(varargin{n})=0;end
+    data.(varargin{n}) = data.(varargin{n})+1;
+end
+data.time = data.time+ (now-then)*( 24*60*60*1e3 );
+data.time = round(data.time);
 end
 
