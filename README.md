@@ -49,7 +49,7 @@ A few examples of valid syntax options:
     ifversion('>=','R2009a')        % returns true when run on R2009a or later
     ifversion('<','R2016a')         % returns true when run on R2015b or older
     ifversion('==','R2018a')        % returns true only when run on R2018a
-    ifversion('==',23.2)            % returns true only when run on R2023b
+    ifversion('==',23.02)           % returns true only when run on R2023b
     ifversion('<',0,'Octave','>',0) % returns true only on Octave
     ifversion('<',0,'Octave','>=',6)% returns true only on Octave 6 and higher
     ifversion('==',9.10)            % !!! returns true only when run on R2016b (v9.1), not R2021a (v9.10) !!!
@@ -60,6 +60,7 @@ Compatibility considerations:
 
 |Test suite result|Windows|Linux|MacOS|
 |---|---|---|---|
+|Matlab R2023b|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Monterey : Pass</it>|
 |Matlab R2023a|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Matlab R2022b|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Monterey : Pass</it>|
 |Matlab R2022a|<it>W11 : Pass</it>|<it></it>|<it></it>|
@@ -78,12 +79,12 @@ Compatibility considerations:
 |Matlab 6.5 (R13)|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 8.2.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 7.2.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
-|Octave 6.2.0|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Catalina : Pass</it>|
+|Octave 6.2.0|<it>W11 : Pass</it>|<it>raspbian_11 : Pass</it>|<it>Catalina : Pass</it>|
 |Octave 5.2.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 4.4.1|<it>W11 : Pass</it>|<it></it>|<it>Catalina : Pass</it>|
 
-    Version: 1.2.1
-    Date:    2023-09-15
+    Version: 1.2.1.1
+    Date:    2023-10-20
     Author:  H.J. Wisselink
     Licence: CC by-nc-sa 4.0 ( https://creativecommons.org/licenses/by-nc-sa/4.0 )
     Email = 'h_j_wisselink*alumnus_utwente_nl';

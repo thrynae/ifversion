@@ -49,7 +49,7 @@ txt = { ...
     sprintf('[%c] R2009a or later',32+56*double(ifversion('>=','R2009a'))),...
     sprintf('[%c] R2015b or older',32+56*double(ifversion('<','R2016a'))),...
     sprintf('[%c] R2018a',32+56*double(ifversion('==','R2018a'))),...
-    sprintf('[%c] R2023a',32+56*double(ifversion('==',9.14))),...
+    sprintf('[%c] R2023b',32+56*double(ifversion('==',23.02))),...
     sprintf('[%c] Octave',32+56*double(ifversion('<',0,'Octave','>',0))),...
     sprintf('[%c] Octave 6 and higher',32+56*double(ifversion('<',0,'Octave','>=',6))),...
     ''};
@@ -105,7 +105,7 @@ function [tf,version_dictionary]=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ve
 % ifversion('>=','R2009a') returns true when run on R2009a or later
 % ifversion('<','R2016a') returns true when run on R2015b or older
 % ifversion('==','R2018a') returns true only when run on R2018a
-% ifversion('==',23.2) returns true only when run on R2023b
+% ifversion('==',23.02) returns true only when run on R2023b
 % ifversion('<',0,'Octave','>',0) returns true only on Octave
 % ifversion('<',0,'Octave','>=',6) returns true only on Octave 6 and higher
 % ifversion('==',9.10) returns true only when run on R2016b (v9.1) not on R2021a (9.10).
@@ -116,8 +116,8 @@ function [tf,version_dictionary]=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ve
 %
 %/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%
 %|                                                                         |%
-%|  Version: 1.2.1                                                         |%
-%|  Date:    2023-09-15                                                    |%
+%|  Version: 1.2.1.1                                                       |%
+%|  Date:    2023-10-20                                                    |%
 %|  Author:  H.J. Wisselink                                                |%
 %|  Licence: CC by-nc-sa 4.0 ( creativecommons.org/licenses/by-nc-sa/4.0 ) |%
 %|  Email = 'h_j_wisselink*alumnus_utwente_nl';                            |%
@@ -156,7 +156,7 @@ if isempty(v_num)
         'R2015b' 806;'R2016a' 900;'R2016b' 901;'R2017a' 902;'R2017b' 903;
         'R2018a' 904;'R2018b' 905;'R2019a' 906;'R2019b' 907;'R2020a' 908;
         'R2020b' 909;'R2021a' 910;'R2021b' 911;'R2022a' 912;'R2022b' 913;
-        'R2023a' 914;'R2023b' 2320};
+        'R2023a' 914;'R2023b' 2302};
 end
 version_dictionary = v_dict;
 
@@ -166,28 +166,28 @@ if octave
             ['No version test for Octave was provided.',char(10),...
             'This function might return an unexpected outcome.']) %#ok<CHARTEN>
         if isnumeric(Rxxxxab)
-            checkpoint('ifversion_______________________________line093_cover_test','CoverTest')
+            checkpoint('ifversion_______________________________line095_cover_test','CoverTest')
             v = 0.1*Rxxxxab+0.9*fixeps(Rxxxxab);v = round(100*v);
         else
             L = ismember(v_dict(:,1),Rxxxxab);
             if sum(L)~=1
-                checkpoint('ifversion_______________________________line098_cover_test','CoverTest')
+                checkpoint('ifversion_______________________________line100_cover_test','CoverTest')
                 warning('HJW:ifversion:NotInDict',...
                     'The requested version is not in the hard-coded list.')
                 tf = NaN;return
             else
-                checkpoint('ifversion_______________________________line103_cover_test','CoverTest')
+                checkpoint('ifversion_______________________________line105_cover_test','CoverTest')
                 v = v_dict{L,2};
             end
         end
     elseif nargin==4
-        checkpoint('ifversion_______________________________line108_cover_test','CoverTest')
+        checkpoint('ifversion_______________________________line110_cover_test','CoverTest')
         % Undocumented shorthand syntax: skip the 'Octave' argument.
         [test,v] = deal(Oct_flag,Oct_test);
         % Convert 4.1 to 401.
         v = 0.1*v+0.9*fixeps(v);v = round(100*v);
     else
-        checkpoint('ifversion_______________________________line114_cover_test','CoverTest')
+        checkpoint('ifversion_______________________________line116_cover_test','CoverTest')
         [test,v] = deal(Oct_test,Oct_ver);
         % Convert 4.1 to 401.
         v = 0.1*v+0.9*fixeps(v);v = round(100*v);
@@ -195,18 +195,18 @@ if octave
 else
     % Convert R notation to numeric and convert 9.1 to 901.
     if isnumeric(Rxxxxab)
-        checkpoint('ifversion_______________________________line122_cover_test','CoverTest')
+        checkpoint('ifversion_______________________________line124_cover_test','CoverTest')
         % Note that this can't distinguish between 9.1 and 9.10, and will the choose the former.
         v = fixeps(Rxxxxab*100);if mod(v,10)==0,v = fixeps(Rxxxxab)*100+mod(Rxxxxab,1)*10;end
     else
         L = ismember(v_dict(:,1),Rxxxxab);
         if sum(L)~=1
-            checkpoint('ifversion_______________________________line128_cover_test','CoverTest')
+            checkpoint('ifversion_______________________________line130_cover_test','CoverTest')
             warning('HJW:ifversion:NotInDict',...
                 'The requested version is not in the hard-coded list.')
             tf = NaN;return
         else
-            checkpoint('ifversion_______________________________line133_cover_test','CoverTest')
+            checkpoint('ifversion_______________________________line135_cover_test','CoverTest')
             v = v_dict{L,2};
         end
     end
