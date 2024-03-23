@@ -22,7 +22,7 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 % ifversion('>=','R2009a') returns true when run on R2009a or later
 % ifversion('<','R2016a') returns true when run on R2015b or older
 % ifversion('==','R2018a') returns true only when run on R2018a
-% ifversion('==',23.02) returns true only when run on R2023b
+% ifversion('==',24.01) returns true only when run on R2024a
 % ifversion('<',0,'Octave','>',0) returns true only on Octave
 % ifversion('<',0,'Octave','>=',6) returns true only on Octave 6 and higher
 % ifversion('==',9.10) returns true only when run on R2016b (v9.1) not on R2021a (9.10).
@@ -33,8 +33,8 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 %
 %/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%
 %|                                                                         |%
-%|  Version: 1.2.1.1                                                       |%
-%|  Date:    2023-10-20                                                    |%
+%|  Version: 1.2.1.2                                                       |%
+%|  Date:    2024-03-23                                                    |%
 %|  Author:  H.J. Wisselink                                                |%
 %|  Licence: CC by-nc-sa 4.0 ( creativecommons.org/licenses/by-nc-sa/4.0 ) |%
 %|  Email = 'h_j_wisselink*alumnus_utwente_nl';                            |%
@@ -43,14 +43,15 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 %/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%/%
 %
 % Tested on several versions of Matlab (ML 6.5 and onward) and Octave (4.4.1 and onward), and on
-% multiple operating systems (Windows/Ubuntu/MacOS). For the full test matrix, see the HTML doc.
+% multiple operating systems (Windows/Ubuntu/MacOS). You can see the full test matrix below.
 % Compatibility considerations:
 % - This is expected to work on all releases.
 %
 % /=========================================================================================\
 % ||                     | Windows             | Linux               | MacOS               ||
 % ||---------------------------------------------------------------------------------------||
-% || Matlab R2023b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
+% || Matlab R2024a       | W11: Pass           |                     | Monterey: Pass      ||
+% || Matlab R2023b       |                     | Ubuntu 22.04: Pass  | Monterey: Pass      ||
 % || Matlab R2023a       | W11: Pass           |                     |                     ||
 % || Matlab R2022b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
 % || Matlab R2022a       | W11: Pass           |                     |                     ||
@@ -60,13 +61,15 @@ function tf=ifversion(test,Rxxxxab,Oct_flag,Oct_test,Oct_ver)
 % || Matlab R2020a       | W11: Pass           |                     |                     ||
 % || Matlab R2019b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
 % || Matlab R2019a       | W11: Pass           |                     |                     ||
-% || Matlab R2018a       | W11: Pass           | Ubuntu 22.04: Pass  |                     ||
+% || Matlab R2018b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
+% || Matlab R2018a       | W11: Pass           |                     |                     ||
 % || Matlab R2017b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
 % || Matlab R2016b       | W11: Pass           | Ubuntu 22.04: Pass  | Monterey: Pass      ||
-% || Matlab R2015a       | W11: Pass           | Ubuntu 22.04: Pass  |                     ||
+% || Matlab R2015a       | W11: Pass           |                     |                     ||
 % || Matlab R2013b       | W11: Pass           |                     |                     ||
 % || Matlab R2007b       | W11: Pass           |                     |                     ||
 % || Matlab 6.5 (R13)    | W11: Pass           |                     |                     ||
+% || Octave 8.4.0        | W11: Pass           |                     |                     ||
 % || Octave 8.2.0        | W11: Pass           |                     |                     ||
 % || Octave 7.2.0        | W11: Pass           |                     |                     ||
 % || Octave 6.2.0        | W11: Pass           | Ubuntu 22.04: Pass  | Catalina: Pass      ||
@@ -100,7 +103,7 @@ if isempty(v_num)
         'R2015b' 806;'R2016a' 900;'R2016b' 901;'R2017a' 902;'R2017b' 903;
         'R2018a' 904;'R2018b' 905;'R2019a' 906;'R2019b' 907;'R2020a' 908;
         'R2020b' 909;'R2021a' 910;'R2021b' 911;'R2022a' 912;'R2022b' 913;
-        'R2023a' 914;'R2023b' 2302};
+        'R2023a' 914;'R2023b' 2302;'R2024a' 2401};
 end
 
 if octave
