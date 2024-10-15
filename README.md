@@ -62,8 +62,9 @@ Compatibility considerations:
 
 |Test suite result|Windows|Linux|MacOS|
 |---|---|---|---|
-|Matlab R2024a|<it>W11 : Pass</it>|<it></it>|<it>Monterey : Pass</it>|
-|Matlab R2023b|<it></it>|<it>ubuntu_22.04 : Pass</it>|<it>Monterey : Pass</it>|
+|Matlab R2024b|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Monterey : Pass</it>|
+|Matlab R2024a|<it>W11 : Pass</it>|<it></it>|<it></it>|
+|Matlab R2023b|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Monterey : Pass</it>|
 |Matlab R2023a|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Matlab R2022b|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Monterey : Pass</it>|
 |Matlab R2022a|<it>W11 : Pass</it>|<it></it>|<it></it>|
@@ -82,14 +83,13 @@ Compatibility considerations:
 |Matlab R2007b|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Matlab 6.5 (R13)|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 8.4.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
-|Octave 8.2.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 7.2.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 6.2.0|<it>W11 : Pass</it>|<it>ubuntu_22.04 : Pass</it>|<it>Catalina : Pass</it>|
 |Octave 5.2.0|<it>W11 : Pass</it>|<it></it>|<it></it>|
 |Octave 4.4.1|<it>W11 : Pass</it>|<it></it>|<it>Catalina : Pass</it>|
 
-    Version: 1.2.1.2
-    Date:    2024-03-23
+    Version: 1.2.1.3
+    Date:    2024-10-15
     Author:  H.J. Wisselink
     Licence: CC by-nc-sa 4.0 ( https://creativecommons.org/licenses/by-nc-sa/4.0 )
     Email = 'h_j_wisselink*alumnus_utwente_nl';
